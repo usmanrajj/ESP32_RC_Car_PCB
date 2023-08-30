@@ -1,0 +1,178 @@
+#include <BluetoothSerial.h>
+int in1=16;
+int in2=4;
+int in3=33;
+int in4=25;
+int enA=23;
+int enB=32;
+
+BluetoothSerial SerialBT;
+
+char usman;
+int SPEED=120;
+
+void left();
+void forward_left();
+void backward_left();
+void right();
+void forward_right();
+void backward_right();
+void forward();
+void backward();
+void Stop();
+void speed();
+
+void setup() 
+{
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  Serial.begin(115200);
+SerialBT.begin("Rajj Engineering");
+}
+
+void loop() {
+if (SerialBT.available())
+{
+Serial.println(usman);
+usman = SerialBT.read();
+}
+switch (usman) {
+  case 'F':
+    forward();
+    break;
+  case 'B':
+    backward();
+  break;
+  case 'L':
+    left();
+  break;
+  case 'G':
+    forward_left();
+  break;
+  case 'I':
+    forward_right();
+  break;
+  case 'H':
+    backward_left();
+  break;
+  case 'J':
+    backward_right();
+  break;
+  case 'R':
+    right();
+  break;
+  case 'S':
+    Stop();
+  }
+  speed();
+  analogWrite(enA,SPEED);
+  analogWrite(enB,SPEED);
+}
+void forward()
+{
+  digitalWrite(in1, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in4, LOW);  
+  
+}
+void backward()
+{
+  digitalWrite(in2, HIGH);
+  digitalWrite(in4, HIGH);
+  digitalWrite(in1, LOW);
+  digitalWrite(in3, LOW); 
+  
+}
+void left()
+{
+  digitalWrite(in1, HIGH);
+  digitalWrite(in4, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW); 
+}
+void forward_left()
+{
+  digitalWrite(in1, HIGH);
+  digitalWrite(in4, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW); 
+}
+void backward_left()
+{
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW); 
+}
+void right()
+{
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in1, LOW);
+  digitalWrite(in4, LOW); 
+  
+}
+void forward_right()
+{
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW); 
+}
+void backward_right()
+{
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH); 
+}
+void Stop()
+{
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW); 
+}
+void speed(){
+if(usman == '0') {
+SPEED = 0;
+}
+else if(usman == '1') {
+SPEED = 23;
+}
+else if(usman == '2') {
+SPEED = 46;
+}
+else if(usman == '3') {
+SPEED = 69;
+}
+else if(usman == '4') {
+SPEED = 92;
+}
+else if(usman == '5') {
+SPEED = 115;
+}
+else if(usman == '6') {
+SPEED = 139;
+}
+else if(usman == '7') {
+SPEED = 162;
+}
+else if(usman == '8') {
+SPEED = 185;
+}
+else if(usman == '9') {
+SPEED = 208;
+}
+else if(usman == '10') {
+SPEED = 231;
+}
+else if(usman == 'q') {
+SPEED = 255;
+}
+}
